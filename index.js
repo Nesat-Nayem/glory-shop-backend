@@ -11,7 +11,17 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bqqvk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// username: glory-shop
+// pass: 63dz5RTDXOCGf3yH
+
+
+
+const uri = "mongodb+srv://glory-shop:63dz5RTDXOCGf3yH@cluster0.hty68.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bqqvk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function run() {
@@ -19,7 +29,7 @@ async function run() {
         await client.connect();
         console.log("connection success")
 
-        const database = client.db("softy-shop");
+        const database = client.db("glory-shop");
         const productsCollection = database.collection('products');
         const usersCollection = database.collection('users');
         const orderCollection = database.collection('orders');
@@ -87,6 +97,22 @@ async function run() {
             const result = await orderCollection.find(email).toArray();
             res.send(result)
         })
+
+                //get api filter by email for single order
+                app.get('/myOrder/:email', async (req, res) => {
+                    const email = req.params.email;
+                    const query = { email: email };
+                    const result = await orderCollection.find(query).toArray();
+        
+                    res.send(result);
+        
+                })
+
+            
+
+
+            
+
         //get all order
         app.get('/allOrders', async (req, res) => {
             const query = {};
@@ -103,7 +129,7 @@ run().catch(console.dir)
 
 
 app.get('/', (req, res) => {
-    res.send("Softy shop");
+    res.send("Glory shop");
 })
 
 app.listen(port, () => {
