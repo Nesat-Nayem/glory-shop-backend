@@ -57,6 +57,14 @@ async function run() {
                 const result = await productsCollection.insertOne(product);
                 res.send(result)
             })
+        // delete product on admin area 
+            app.delete('/deleteProduct/:id', async(req,res)=>{
+                const id = req.params.id;
+                const query ={_id:ObjectId(id)};
+                const result = await productsCollection.deleteOne(query);
+                res.send(result)
+            })
+
         //get product by category
         app.get('/products/category/:category', async(req,res) =>{
             const category = req.params.category;
