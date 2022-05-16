@@ -51,6 +51,12 @@ async function run() {
 
         })
 
+        // add product on admin area 
+            app.post('/addProduct',async(req,res) =>{
+                const product = req.body;
+                const result = await productsCollection.insertOne(product);
+                res.send(result)
+            })
         //get product by category
         app.get('/products/category/:category', async(req,res) =>{
             const category = req.params.category;
