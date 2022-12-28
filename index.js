@@ -11,12 +11,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// username: glory-shop
-// pass: 63dz5RTDXOCGf3yH
-
-// const uri =
-//   "mongodb+srv://glory-shop:63dz5RTDXOCGf3yH@cluster0.hty68.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.hty68.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
